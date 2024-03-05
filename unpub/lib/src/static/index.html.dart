@@ -1261,6 +1261,9 @@ const content = """<!DOCTYPE html>
         color: #fff;
         margin: 5em 0;
       }
+      .search-bar > .input:focus {
+        outline: none;
+      }
       .search-bar > .input::placeholder {
         color: #888;
       }
