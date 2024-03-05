@@ -165,7 +165,7 @@ const content = """<!DOCTYPE html>
       }
       ._banner-bg {
         background: #132030;
-        /* background-image: url("/web/20191208142649im_/https://pub.dev/static/img/background-pattern-darkblue.jpg?hash=tqigd6sddnrgq97c7crv8d2l6agjtrob"); */
+        background-image: url("https://pub.dev/static/img/hero-bg-static.svg");
         background-size: cover;
         color: #8d9399;
       }
