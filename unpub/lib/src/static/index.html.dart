@@ -1253,11 +1253,13 @@ const content = """<!DOCTYPE html>
         padding: 0.8em 1em;
         border: none;
         width: 150px;
+        border-radius: 24px;
         -webkit-box-flex: 1;
         -ms-flex-positive: 1;
         flex-grow: 1;
         background: #35404d;
         color: #fff;
+        margin: 5em 0;
       }
       .search-bar > .input::placeholder {
         color: #888;
@@ -1273,6 +1275,8 @@ const content = """<!DOCTYPE html>
         background-position: 50% 50%;
         -webkit-transform: scale(1.02);
         transform: scale(1.02);
+        border-radius: 24px;
+        margin: 0 1em;
       }
       .search-bar-details {
         position: relative;
