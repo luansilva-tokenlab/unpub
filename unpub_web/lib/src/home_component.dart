@@ -13,11 +13,14 @@ import 'package:unpub_api/models.dart';
 class HomeComponent implements OnActivate {
   final AppService appService;
 
-  ListApi data;
-  HomeComponent(this.appService);
+  late ListApi data;
+
+  HomeComponent({
+    required this.appService,
+  });
 
   @override
-  void onActivate(RouterState previous, RouterState current) async {
+  void onActivate(previous, current) async {
     appService.setLoading(true);
     data = await appService.fetchPackages(size: 15);
     appService.setLoading(false);

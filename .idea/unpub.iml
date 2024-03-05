@@ -3,6 +3,12 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.fvm/flutter_sdk/packages/flutter_tools/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/.fvm/flutter_sdk/packages/flutter_tools/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/.fvm/flutter_sdk/packages/flutter_tools/build" />
+      <excludeFolder url="file://$MODULE_DIR$/.fvm/versions/stable/packages/flutter_tools/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/.fvm/versions/stable/packages/flutter_tools/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/.fvm/versions/stable/packages/flutter_tools/build" />
       <excludeFolder url="file://$MODULE_DIR$/unpub/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/unpub/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/unpub/build" />

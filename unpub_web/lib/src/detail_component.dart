@@ -29,19 +29,23 @@ final NodeValidatorBuilder _htmlValidator = NodeValidatorBuilder.common()
 )
 class DetailComponent implements OnInit, OnActivate {
   final AppService appService;
-  DetailComponent(this.appService);
 
-  WebapiDetailView package;
-  String packageName;
-  String packageVersion;
-  int activeTab = 0;
-  bool packageNotExists = false;
+  DetailComponent({
+    required this.appService,
+  });
 
-  String get readmeHtml =>
-      package.readme == null ? null : markdownToHtml(package.readme);
+  late WebapiDetailView package;
+  late String packageName;
+  late String packageVersion;
+  late int activeTab = 0;
+  late bool packageNotExists = false;
 
-  String get changelogHtml =>
-      package.changelog == null ? null : markdownToHtml(package.changelog);
+  String? get readmeHtml =>
+      package.readme == null ? null : markdownToHtml(package.readme ?? '');
+
+  String? get changelogHtml => package.changelog == null
+      ? null
+      : markdownToHtml(package.changelog ?? '');
 
   String get pubDevLink {
     var url = 'https://pub.dev/packages/$packageName';
@@ -63,15 +67,15 @@ class DetailComponent implements OnInit, OnActivate {
 
     if (name != null) {
       packageName = name;
-      packageVersion = version;
+      packageVersion = version ?? 'latest';
       appService.setLoading(true);
       try {
-        package = await appService.fetchPackage(name, version);
+        package = await appService.fetchPackage(name, version ?? 'latest');
         await Future.delayed(Duration(seconds: 0)); // Next tick
         querySelector('#readme')
-            .setInnerHtml(readmeHtml, validator: _htmlValidator);
+            ?.setInnerHtml(readmeHtml, validator: _htmlValidator);
         querySelector('#changelog')
-            .setInnerHtml(changelogHtml, validator: _htmlValidator);
+            ?.setInnerHtml(changelogHtml, validator: _htmlValidator);
       } on PackageNotExistsException {
         packageNotExists = true;
       } finally {
@@ -84,7 +88,7 @@ class DetailComponent implements OnInit, OnActivate {
     return RoutePaths.list.toUrl(queryParameters: {'q': q});
   }
 
-  getDetailUrl(String name, [String version]) {
+  getDetailUrl(String name, [String? version]) {
     if (version == null) {
       return RoutePaths.detail.toUrl(parameters: {'name': name});
     } else {

@@ -17,12 +17,15 @@ class ListComponent implements OnInit, OnActivate {
   final AppService appService;
   static final size = 10;
 
-  String q;
-  int currentPage;
-  ListApi data;
-  ListComponent(this.appService);
+  late String? q;
+  late int currentPage;
+  late ListApi? data;
 
-  int get pageCount => (data.count / size).ceil();
+  ListComponent({
+    required this.appService,
+  });
+
+  int get pageCount => (data?.count ?? 0 / size).ceil();
 
   List<int> get pages {
     if (data == null) return [];
@@ -36,7 +39,7 @@ class ListComponent implements OnInit, OnActivate {
   Future<Null> ngOnInit() async {}
 
   @override
-  void onActivate(RouterState previous, RouterState current) async {
+  void onActivate(previous, current) async {
     q = current.queryParameters['q'];
     currentPage = int.tryParse(current.queryParameters['page'] ?? '0') ?? 0;
     appService.setLoading(true);
@@ -46,7 +49,7 @@ class ListComponent implements OnInit, OnActivate {
 
   getListUrl(int page) {
     Map<String, String> queryParameters = {};
-    if (q != null) queryParameters['q'] = q;
+    if (q != null) queryParameters['q'] = q!;
     if (page > 0) queryParameters['page'] = page.toString();
 
     return RoutePaths.list.toUrl(queryParameters: queryParameters);
