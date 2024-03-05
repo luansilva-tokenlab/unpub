@@ -14264,9 +14264,16 @@ T.an(s,"href","https://github.com/luansilva-tokenlab/unpub")
 r.H(s)
 T.X(s,"Source code")
 T.X(p," ")
+o=o.a(T.x(q,p,"a"))
+r.t(o,"link github_issue")
+T.an(o,"href","https://learning.tokenlab.dev/login")
+r.H(o)
+T.X(o,"Learning")
 r.a5(p)}}
 V.mk.prototype={
 T:function(){var s,r,q=this,p=new V.hk(E.qs(q,0,3)),o=\$.vK
+if(o==null)o=\$.vK=O.uW(\$.CL,null)
+p.b=o
 s=document.createElement("my-app")
 p.c=t.Q.a(s)
 q.sd2(p)
