@@ -7,7 +7,7 @@ abstract class PackageStore {
     throw 'downloadUri not implemented';
   }
 
-  Future<Stream<List<int>>> download(String name, String version) {
+  Stream<List<int>> download(String name, String version) {
     throw 'download not implemented';
   }
 
