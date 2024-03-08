@@ -222,7 +222,7 @@ class App {
           await packageStore.downloadUrl(name, version));
     } else {
       return shelf.Response.ok(
-        packageStore.download(name, version),
+        await packageStore.download(name, version),
         headers: {HttpHeaders.contentTypeHeader: ContentType.binary.mimeType},
       );
     }

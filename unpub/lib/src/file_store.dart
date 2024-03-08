@@ -22,7 +22,7 @@ class FileStore extends PackageStore {
   }
 
   @override
-  Stream<List<int>> download(String name, String version) {
-    return _getTarballFile(name, version).openRead();
+  Future<Stream<List<int>>> download(String name, String version) {
+    return Future.value(_getTarballFile(name, version).openRead());
   }
 }
