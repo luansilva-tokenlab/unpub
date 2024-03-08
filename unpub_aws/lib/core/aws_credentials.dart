@@ -1,4 +1,3 @@
-import 'dart:cli';
 import 'dart:io';
 import 'dart:convert';
 
@@ -17,7 +16,15 @@ class AwsCredentials {
       this.awsSessionToken,
       this.environment,
       this.containerCredentials}) {
+  }
 
+  static Future<AwsCredentials> create({
+    String? awsAccessKeyId,
+    String? awsSecretAccessKey,
+    String? awsSessionToken,
+    Map<String, String>? environment,
+    Map<String, String>? containerCredentials,
+  }) async {
     final env = environment ?? Platform.environment;
     environment ??= Platform.environment;
     awsAccessKeyId = awsAccessKeyId ?? env['AWS_ACCESS_KEY_ID'];
@@ -27,7 +34,7 @@ class AwsCredentials {
 
     if ((isInContainer != null || containerCredentials != null) &&
         (awsAccessKeyId == null && awsSecretAccessKey == null)) {
-      var data = containerCredentials ?? waitFor(getContainerCredentials(env));
+      var data = containerCredentials ?? await getContainerCredentials(env);
       if (data != null) {
         awsAccessKeyId = data['AccessKeyId'];
         awsSecretAccessKey = data['SecretAccessKey'];
@@ -39,9 +46,16 @@ class AwsCredentials {
       throw ArgumentError(
           'You must provide a valid Access Key and Secret for AWS.');
     }
+
+    return AwsCredentials(
+        awsAccessKeyId: awsAccessKeyId,
+        awsSecretAccessKey: awsSecretAccessKey,
+        awsSessionToken: awsSessionToken,
+        environment: environment,
+        containerCredentials: containerCredentials);
   }
 
-  Future<Map<String, String>?> getContainerCredentials(
+  static Future<Map<String, String>?> getContainerCredentials(
       Map<String, String> environment) async {
     try {
       var relativeUri =
@@ -52,5 +66,6 @@ class AwsCredentials {
     } catch (e) {
       print('failed to get container credentials.');
     }
+    return null;
   }
 }

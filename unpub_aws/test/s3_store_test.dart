@@ -64,7 +64,7 @@ void main() async {
     test('upload-download-default-path', () async {
       await testS3Store.upload('test_package', '1.0.0', testPackageData);
       var pkg1 =
-          await readByteStream(testS3Store.download('test_package', '1.0.0'));
+          await readByteStream(await testS3Store.download('test_package', '1.0.0'));
       expect(pkg1, testPackageData);
     });
 
@@ -76,7 +76,7 @@ void main() async {
 
       await testS3Store.upload('test_package', '1.0.0', testPackageData2);
       var pkg2 =
-          await readByteStream(testS3Store.download('test_package', '1.0.0'));
+          await readByteStream(await testS3Store.download('test_package', '1.0.0'));
       expect(pkg2, testPackageData2, reason: 'tar.gz content did not match');
     });
 

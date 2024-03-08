@@ -16,6 +16,7 @@ const _scopes = ['openid', 'https://www.googleapis.com/auth/userinfo.email'];
 
 get _identifier => utf8.decode(base64.decode(
     r'NDY4NDkyNDU2MjM5LTJja2wxdTB1dGloOHRzZWtnMGxpZ2NpY2VqYm8wbnZkLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29t'));
+
 get _secret => utf8
     .decode(base64.decode(r'R09DU1BYLUxHMWZTV052UjA0S0NrWVZRMTVGS3J1cGJ5bFk='));
 
@@ -137,11 +138,8 @@ Future<oauth2.Client> clientWithAuthorization() async {
     return resp;
   });
 
-  final authUrl = grant
-          .getAuthorizationUrl(Uri.parse('http://localhost:${server.port}'),
-              scopes: _scopes)
-          .toString() +
-      '&access_type=offline&approval_prompt=force';
+  final authUrl =
+      '${grant.getAuthorizationUrl(Uri.parse('http://localhost:${server.port}'), scopes: _scopes)}&access_type=offline&approval_prompt=force';
   Utils.stdoutPrint(
       'unpub needs your authorization to upload packages on your behalf.\n'
       'In a web browser, go to $authUrl\n'

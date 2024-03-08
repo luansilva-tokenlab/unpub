@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:cli';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -57,7 +56,7 @@ class S3Store extends PackageStore {
   }
 
   @override
-  Stream<List<int>> download(String name, String version) {
-    return waitFor(minio!.getObject(bucketName, _getObjectKey(name, version)));
+  Future<Stream<List<int>>> download(String name, String version) async {
+    return minio!.getObject(bucketName, _getObjectKey(name, version));
   }
 }
