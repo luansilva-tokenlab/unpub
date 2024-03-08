@@ -23,11 +23,21 @@ class S3Store extends PackageStore {
         this.endpoint,
         this.credentials,
         this.minio, this.environment}) {
+  }
 
+  static Future<S3Store> create({
+    required String bucketName,
+    String? region,
+    String Function(String name, String version)? getObjectPath,
+    String? endpoint,
+    AwsCredentials? credentials,
+    Minio? minio,
+    Map<String, String>? environment,
+  }) async {
     final env = environment ?? Platform.environment;
 
     // Check for env vars or container credentials if none were provided.
-    credentials ??= AwsCredentials(environment: env);
+    credentials ??= await AwsCredentials.create(environment: env);
 
     // Use a supplied minio instance or create a default
     minio ??= Minio(
@@ -43,6 +53,14 @@ class S3Store extends PackageStore {
             env['AWS_DEFAULT_REGION']!.isEmpty)) {
       throw ArgumentError('Could not determine a default region for aws.');
     }
+
+    return S3Store(bucketName,
+        region: region,
+        getObjectPath: getObjectPath,
+        endpoint: endpoint,
+        credentials: credentials,
+        minio: minio,
+        environment: environment);
   }
 
   String _getObjectKey(String name, String version) {

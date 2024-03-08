@@ -10,13 +10,13 @@ class AwsCredentials {
   Map<String, String>? environment;
   Map<String, String>? containerCredentials;
 
-  AwsCredentials(
-      {this.awsAccessKeyId,
-      this.awsSecretAccessKey,
-      this.awsSessionToken,
-      this.environment,
-      this.containerCredentials}) {
-  }
+  AwsCredentials({
+    this.awsAccessKeyId,
+    this.awsSecretAccessKey,
+    this.awsSessionToken,
+    this.environment,
+    this.containerCredentials,
+  });
 
   static Future<AwsCredentials> create({
     String? awsAccessKeyId,
