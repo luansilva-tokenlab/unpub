@@ -16,7 +16,7 @@ main() {
     var baseDir = _setup_fixture('upload-download-default-path');
     var store = unpub.FileStore(baseDir.path);
     await store.upload('test_package', '1.0.0', TEST_PKG_DATA);
-    var pkg2 = await readByteStream(store.download('test_package', '1.0.0'));
+    var pkg2 = await readByteStream(await store.download('test_package', '1.0.0'));
     expect(pkg2, TEST_PKG_DATA);
     expect(
         File(path.join(baseDir.path, 'test_package-1.0.0.tar.gz')).existsSync(),
@@ -27,7 +27,7 @@ main() {
     var baseDir = _setup_fixture('upload-download-custom-path');
     var store = unpub.FileStore(baseDir.path, getFilePath: newFilePathFunc());
     await store.upload('test_package', '1.0.0', TEST_PKG_DATA);
-    var pkg2 = await readByteStream(store.download('test_package', '1.0.0'));
+    var pkg2 = await readByteStream(await store.download('test_package', '1.0.0'));
     expect(pkg2, TEST_PKG_DATA);
     expect(
         File(path.join(baseDir.path, 'packages', 't', 'te', 'test_package',
