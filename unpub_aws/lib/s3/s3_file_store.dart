@@ -43,8 +43,8 @@ class S3Store extends PackageStore {
     minio ??= Minio(
       endPoint: endpoint ?? env['AWS_S3_ENDPOINT'] ?? 's3.amazonaws.com',
       region: region ?? env['AWS_DEFAULT_REGION'],
-      accessKey: credentials!.awsAccessKeyId ?? '',
-      secretKey: credentials!.awsSecretAccessKey ?? '',
+      accessKey: credentials.awsAccessKeyId ?? '',
+      secretKey: credentials.awsSecretAccessKey ?? '',
     );
 
     // Check for a region or default region which is required
